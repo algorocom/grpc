@@ -611,7 +611,6 @@ defmodule GRPC.Stub do
   end
 
   defp parse_req_opts([{:content_type, content_type} | t], acc) do
-    Logger.warn(":content_type has been deprecated, please use :codec")
     parse_req_opts(t, Map.put(acc, :content_type, content_type))
   end
 
@@ -621,6 +620,10 @@ defmodule GRPC.Stub do
 
   defp parse_req_opts([{:return_headers, return_headers} | t], acc) do
     parse_req_opts(t, Map.put(acc, :return_headers, return_headers))
+  end
+
+  defp parse_req_opts([{:authorization, authorization} | t], acc) do
+    parse_req_opts(t, Map.put(acc, :authorization, authorization))
   end
 
   defp parse_req_opts([{key, _} | _], _) do
